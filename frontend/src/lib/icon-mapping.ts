@@ -4,6 +4,8 @@ export const iconMapping: Record<string, string> = {
   tokino_sora: 'tokino_sora_thumb.png',
   azki: 'AZKi_list_thumb.png',
   roboco: 'Robocosan_list_thumb.png',
+  sakura_miko: 'Sakura-Miko_list_thumb.png',
+  hoshimachi_suisei: 'Hoshimachi-Suisei_list_thumb.png',
 
   // 1期生
   shirakami_fubuki: 'Shirakami-Fubuki_list_thumb.png',
@@ -48,7 +50,57 @@ export const iconMapping: Record<string, string> = {
   sakamata_chloe: 'Sakamata-Chloe_list_thumb.png',
   kazama_iroha: 'Kazama-Iroha_list_thumb.png',
 
-  // その他
-  sakura_miko: 'Sakura-Miko_list_thumb.png',
-  hoshimachi_suisei: 'Hoshimachi-Suisei_list_thumb.png',
+  // EN Myth
+  mori_calliope: 'Mori-Calliope_list_thumb.png',
+  takanashi_kiara: 'Takanashi-Kiara_list_thumb.png',
+  ninomae_inanis: 'Ninomae-Inanis_list_thumb.png',
+
+  // EN Promise
+  irys: 'IRyS_list_thumb.png',
+  ouro_kronii: 'Ouro-Kronii_list_thumb.png',
+  hakos_baelz: 'Hakos-Baelz_list_thumb.png',
+  ceres_fauna: 'Ceres-Fauna_list_thumb.png',
+  nanashi_mumei: 'Nanashi-Mumei_list_thumb.png',
+
+  // EN Advent
+  shiori_novella: 'Shiori-Novella_list_thumb.png',
+  koseki_bijou: 'Koseki-Bijou_list_thumb.png',
+  nerissa_ravencroft: 'Nerissa-Ravencroft_list_thumb.png',
+  fuwawa_abyssgard: 'Fuwawa-Abyssgard_list_thumb.png',
+  mococo_abyssgard: 'Mococo-Abyssgard_list_thumb.png',
+
+  // EN Justice
+  elizabeth_rose_bloodflame: 'Elizabeth-Rose-Bloodflame_list_thumb.png',
+  gigi_murin: 'Gigi-Murin_list_thumb.png',
+  cecilia_immergreen: 'Cecilia-Immergreen_list_thumb.png',
+  raora_panthera: 'Raora-Panthera_list_thumb.png',
+
+  // ID Gen1
+  ayunda_risu: 'Ayunda-Risu_list_thumb.png',
+  moona_hoshinova: 'Moona-Hoshinova_list_thumb.png',
+  airani_iofifteen: 'Airani-Iofifteen_list_thumb.png',
+
+  // ID Gen2
+  kureiji_ollie: 'Kureiji-Ollie_list_thumb.png',
+  anya_melfissa: 'Anya-Melfissa_list_thumb.png',
+  pavolia_reine: 'Pavolia-Reine_list_thumb.png',
+
+  // ID Gen3
+  vestia_zeta: 'Vestia-Zeta_list_thumb.png',
+  kaela_kovalskia: 'Kaela-Kovalskia_list_thumb.png',
+  kobo_kanaeru: 'Kobo-Kanaeru_list_thumb.png',
+
+  // DEV_IS ReGLOSS
+  hiodoshi_ao: 'Hiodoshi-Ao_list_thumb.png',
+  otonose_kanade: 'Otonose-Kanade_list_thumb.png',
+  ichijou_ririka: 'Ichijou-Ririka_list_thumb.png',
+  juufuutei_raden: 'Juufuutei-Raden_list_thumb.png',
+  todoroki_hajime: 'Todoroki-Hajime_list_thumb.png',
+
+  // DEV_IS FLOW GLOW
+  isaki_riona: 'Isaki-Riona_list_thumb.png',
+  koganei_niko: 'Koganei-Niko_list_thumb.png',
+  mizumiya_su: 'Mizumiya-Su_list_thumb.png',
+  rindo_chihaya: 'Rindo-Chihaya_list_thumb.png',
+  kikirara_vivi: 'Kikirara-Vivi_list_thumb.png',
 }
