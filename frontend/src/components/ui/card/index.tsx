@@ -1,27 +1,25 @@
 'use client'
 
+import { cn } from '@/lib/utils'
 import {
   Card as HeroCard,
   CardBody as HeroCardBody,
-  CardHeader as HeroCardHeader,
   CardFooter as HeroCardFooter,
-  CardProps as HeroCardProps,
-  CardBodyProps as HeroCardBodyProps,
-  CardHeaderProps as HeroCardHeaderProps,
   CardFooterProps as HeroCardFooterProps,
-} from '@heroui/react'
-import { forwardRef } from 'react'
-import { cn } from '@/lib/utils'
+  CardHeader as HeroCardHeader,
+  CardProps as HeroCardProps,
+} from '@heroui/card'
+import { ComponentProps, forwardRef } from 'react'
 
 export interface CardProps extends HeroCardProps {
   className?: string
 }
 
-export interface CardBodyProps extends HeroCardBodyProps {
+export type CardBodyProps = ComponentProps<typeof HeroCardBody> & {
   className?: string
 }
 
-export interface CardHeaderProps extends HeroCardHeaderProps {
+export type CardHeaderProps = ComponentProps<typeof HeroCardHeader> & {
   className?: string
 }
 
@@ -31,49 +29,25 @@ export interface CardFooterProps extends HeroCardFooterProps {
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, ...props }, ref) => {
-    return (
-      <HeroCard
-        ref={ref}
-        className={cn(className)}
-        {...props}
-      />
-    )
+    return <HeroCard ref={ref} className={cn(className)} {...props} />
   }
 )
 
 const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
   ({ className, ...props }, ref) => {
-    return (
-      <HeroCardBody
-        ref={ref}
-        className={cn(className)}
-        {...props}
-      />
-    )
+    return <HeroCardBody ref={ref} className={cn(className)} {...props} />
   }
 )
 
 const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, ...props }, ref) => {
-    return (
-      <HeroCardHeader
-        ref={ref}
-        className={cn(className)}
-        {...props}
-      />
-    )
+    return <HeroCardHeader ref={ref} className={cn(className)} {...props} />
   }
 )
 
 const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   ({ className, ...props }, ref) => {
-    return (
-      <HeroCardFooter
-        ref={ref}
-        className={cn(className)}
-        {...props}
-      />
-    )
+    return <HeroCardFooter ref={ref} className={cn(className)} {...props} />
   }
 )
 
@@ -82,4 +56,4 @@ CardBody.displayName = 'CardBody'
 CardHeader.displayName = 'CardHeader'
 CardFooter.displayName = 'CardFooter'
 
-export { Card, CardBody, CardHeader, CardFooter }
+export { Card, CardBody, CardFooter, CardHeader }
