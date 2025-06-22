@@ -38,8 +38,7 @@ export const mythMembers: HoloMember[] = [
     branch: 'EN',
     generation: 'Myth',
     debut: '2020-09-12',
-    description:
-      'フェニックスのVtuber。明るく元気な性格で、多言語対応も得意。',
+    description: 'フェニックスのVtuber。明るく元気な性格で、多言語対応も得意。',
     contentTypes: ['chatting', 'gaming', 'singing', 'collab'],
     personality: ['energetic', 'witty'],
     streamingStyle: 'chat_interactive',

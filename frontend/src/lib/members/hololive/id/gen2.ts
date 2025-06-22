@@ -15,7 +15,7 @@ export const idGen2Members: HoloMember[] = [
     name: 'Kureiji Ollie',
     nameJP: 'クレイジー・オリー',
     branch: 'ID',
-    generation: 'ID 2期生',
+    generation: 'Gen 2',
     debut: '2020-12-04',
     description:
       'ゾンビのVtuber。エネルギッシュで明るい性格、多言語での配信が人気。',
@@ -36,7 +36,7 @@ export const idGen2Members: HoloMember[] = [
     name: 'Anya Melfissa',
     nameJP: 'アーニャ・メルフィッサ',
     branch: 'ID',
-    generation: 'ID 2期生',
+    generation: 'Gen 2',
     debut: '2020-12-05',
     description:
       'ダガーをモチーフにしたVtuber。落ち着いた配信スタイルと独特なユーモア。',
@@ -57,7 +57,7 @@ export const idGen2Members: HoloMember[] = [
     name: 'Pavolia Reine',
     nameJP: 'パヴォリア・レイネ',
     branch: 'ID',
-    generation: 'ID 2期生',
+    generation: 'Gen 2',
     debut: '2020-12-06',
     description:
       'ピーコックのVtuber。エレガントな魅力と多彩なコンテンツが特徴。',

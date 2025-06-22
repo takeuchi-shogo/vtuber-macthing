@@ -38,8 +38,7 @@ export const adventMembers: HoloMember[] = [
     branch: 'EN',
     generation: 'Advent',
     debut: '2023-08-06',
-    description:
-      '宝石のVtuber。小柄だが意外に大胆な発言をするギャップが魅力。',
+    description: '宝石のVtuber。小柄だが意外に大胆な発言をするギャップが魅力。',
     contentTypes: ['gaming', 'chatting'],
     personality: ['natural', 'mischievous'],
     streamingStyle: 'chat_interactive',
@@ -59,8 +58,7 @@ export const adventMembers: HoloMember[] = [
     branch: 'EN',
     generation: 'Advent',
     debut: '2023-08-07',
-    description:
-      'デーモンのVtuber。歌唱力が高く、大人っぽい魅力がある。',
+    description: 'デーモンのVtuber。歌唱力が高く、大人っぽい魅力がある。',
     contentTypes: ['singing', 'chatting', 'gaming'],
     personality: ['cool', 'witty'],
     streamingStyle: 'performance_focused',
@@ -101,8 +99,7 @@ export const adventMembers: HoloMember[] = [
     branch: 'EN',
     generation: 'Advent',
     debut: '2023-08-08',
-    description:
-      '双子の妹のVtuber。フワワとセットで活動し、ツッコミ役が多い。',
+    description: '双子の妹のVtuber。フワワとセットで活動し、ツッコミ役が多い。',
     contentTypes: ['gaming', 'chatting', 'collab'],
     personality: ['witty', 'energetic'],
     streamingStyle: 'chat_interactive',

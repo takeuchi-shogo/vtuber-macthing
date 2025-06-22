@@ -2,7 +2,7 @@
 
 import { Card, CardBody } from '@heroui/react'
 import { Button } from '@/components/ui'
-import { Heart, Play, Sparkles, Users } from 'lucide-react'
+import { Heart, Play, Sparkles, Users, List } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
@@ -26,15 +26,27 @@ export default function Home() {
 
         <main className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <Button
-              color="primary"
-              size="lg"
-              onPress={handleStartQuiz}
-              startContent={<Play size={20} />}
-              className="font-semibold px-8 py-6 text-lg"
-            >
-              診断を始める
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                color="primary"
+                size="lg"
+                onPress={handleStartQuiz}
+                startContent={<Play size={20} />}
+                className="font-semibold px-8 py-6 text-lg"
+              >
+                診断を始める
+              </Button>
+              <Button
+                color="primary"
+                variant="flat"
+                size="lg"
+                onPress={() => router.push('/member')}
+                startContent={<List size={20} />}
+                className="font-semibold px-8 py-6 text-lg"
+              >
+                メンバー一覧
+              </Button>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -59,9 +71,9 @@ export default function Home() {
                     <Users className="w-8 h-8 text-purple-600" />
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">30名以上対応</h3>
+                <h3 className="text-lg font-semibold mb-2">100名以上対応</h3>
                 <p className="text-gray-600 text-sm">
-                  ホロライブJPの主要メンバーから最適な推しを提案
+                  ホロライブJP・EN・ID・DEV_ISの全メンバーから最適な推しを提案
                 </p>
               </CardBody>
             </Card>
@@ -121,16 +133,28 @@ export default function Home() {
           </div>
 
           <div className="text-center">
-            <Button
-              color="primary"
-              size="lg"
-              variant="shadow"
-              onPress={handleStartQuiz}
-              startContent={<Sparkles size={20} />}
-              className="font-semibold px-8 py-6 text-lg hover:scale-105 transition-transform"
-            >
-              今すぐ診断を始める
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                color="primary"
+                size="lg"
+                variant="shadow"
+                onPress={handleStartQuiz}
+                startContent={<Sparkles size={20} />}
+                className="font-semibold px-8 py-6 text-lg hover:scale-105 transition-transform"
+              >
+                今すぐ診断を始める
+              </Button>
+              <Button
+                color="secondary"
+                size="lg"
+                variant="flat"
+                onPress={() => router.push('/member')}
+                startContent={<Users size={20} />}
+                className="font-semibold px-8 py-6 text-lg hover:scale-105 transition-transform"
+              >
+                全メンバーを見る
+              </Button>
+            </div>
           </div>
         </main>
 

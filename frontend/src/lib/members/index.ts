@@ -16,5 +16,14 @@ export const holoMembers: HoloMember[] = [
 
 // 事務所別エクスポート
 export { hololiveMembers } from './hololive'
+
+// ブランチ別エクスポート
+export { 
+  hololiveJPMembers,
+  hololiveENMembers, 
+  hololiveIDMembers,
+  devisMembers 
+} from './hololive'
+
 // export { nijisanjiMembers } from './nijisanji'
 // export { vspoMembers } from './vspo'

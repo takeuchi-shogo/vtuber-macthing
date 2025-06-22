@@ -80,8 +80,7 @@ export const promiseMembers: HoloMember[] = [
     branch: 'EN',
     generation: 'Promise',
     debut: '2021-08-23',
-    description:
-      '自然の概念を司るVtuber。癒し系の声と植物への愛情が特徴的。',
+    description: '自然の概念を司るVtuber。癒し系の声と植物への愛情が特徴的。',
     contentTypes: ['asmr', 'chatting', 'gaming'],
     personality: ['calm', 'motherly'],
     streamingStyle: 'laid_back',
@@ -101,8 +100,7 @@ export const promiseMembers: HoloMember[] = [
     branch: 'EN',
     generation: 'Promise',
     debut: '2021-08-23',
-    description:
-      '文明の概念を司るVtuber。天然な性格と可愛らしい声が魅力的。',
+    description: '文明の概念を司るVtuber。天然な性格と可愛らしい声が魅力的。',
     contentTypes: ['gaming', 'chatting', 'singing', 'drawing'],
     personality: ['natural', 'calm'],
     streamingStyle: 'chat_interactive',

@@ -9,7 +9,4 @@ export const devisMembers: HoloMember[] = [
 ]
 
 // グループ別エクスポート
-export {
-  reglossMembers,
-  flowglowMembers,
-}
+export { reglossMembers, flowglowMembers }

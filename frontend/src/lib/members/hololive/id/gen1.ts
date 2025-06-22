@@ -6,7 +6,7 @@ function getIconPath(memberId: string): string {
   const fileName = iconMapping[memberId]
   return fileName
     ? `/images/hololive/icon/id/${fileName}`
-    : `/images/hololive/icon/id/${memberId}.png`
+    : `/images/fallback-avatar.svg`
 }
 
 export const idGen1Members: HoloMember[] = [
@@ -15,7 +15,7 @@ export const idGen1Members: HoloMember[] = [
     name: 'Ayunda Risu',
     nameJP: 'リス',
     branch: 'ID',
-    generation: 'ID 1期生',
+    generation: 'Gen 1',
     debut: '2020-04-10',
     description:
       'リスのVtuber。多言語を話すことができ、歌配信やゲーム配信で活動。',
@@ -36,7 +36,7 @@ export const idGen1Members: HoloMember[] = [
     name: 'Moona Hoshinova',
     nameJP: 'ムーナ・ホシノヴァ',
     branch: 'ID',
-    generation: 'ID 1期生',
+    generation: 'Gen 1',
     debut: '2020-04-11',
     description:
       '月をモチーフにしたVtuber。建築系ゲームが得意で、歌唱力も高い。',
@@ -57,10 +57,9 @@ export const idGen1Members: HoloMember[] = [
     name: 'Airani Iofifteen',
     nameJP: 'アイラニ・イオフィフティーン',
     branch: 'ID',
-    generation: 'ID 1期生',
+    generation: 'Gen 1',
     debut: '2020-04-12',
-    description:
-      'エイリアンのVtuber。アート配信や多言語での配信が特徴的。',
+    description: 'エイリアンのVtuber。アート配信や多言語での配信が特徴的。',
     contentTypes: ['drawing', 'chatting', 'gaming'],
     personality: ['energetic', 'mischievous'],
     streamingStyle: 'chat_interactive',

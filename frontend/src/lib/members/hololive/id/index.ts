@@ -11,8 +11,4 @@ export const hololiveIDMembers: HoloMember[] = [
 ]
 
 // 世代別エクスポート
-export {
-  idGen1Members,
-  idGen2Members,
-  idGen3Members,
-}
+export { idGen1Members, idGen2Members, idGen3Members }

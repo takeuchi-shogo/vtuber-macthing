@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui'
 import { HoloMember } from '@/types'
 import { Card, CardBody, CardHeader, Chip } from '@heroui/react'
