@@ -1,6 +1,6 @@
 'use client'
 
-import { MemberListCard } from '@/components/member-list-card'
+import { MemberListCard } from '@/components/member'
 import { Button } from '@/components/ui'
 import { HoloMember } from '@/types'
 import { Card, CardBody, Chip } from '@heroui/react'
