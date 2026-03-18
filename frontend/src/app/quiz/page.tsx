@@ -20,19 +20,23 @@ export default function QuizPage() {
 	} = useQuiz();
 
 	const handleReset = () => {
-		// 回答データをクリア
-		localStorage.removeItem("quizAnswers");
-		// クイズ状態をリセット
+		try {
+			localStorage.removeItem("quizAnswers");
+		} catch {
+			// ignore
+		}
 		resetQuiz();
-		// トップページに遷移
 		router.push("/");
 	};
 
 	useEffect(() => {
 		if (isCompleted) {
-			const userAnswers = getUserAnswers();
-			// 回答データをローカルストレージに保存
-			localStorage.setItem("quizAnswers", JSON.stringify(userAnswers));
+			try {
+				const userAnswers = getUserAnswers();
+				localStorage.setItem("quizAnswers", JSON.stringify(userAnswers));
+			} catch {
+				// ignore
+			}
 			router.push("/result");
 		}
 	}, [isCompleted, getUserAnswers, router]);
