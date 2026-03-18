@@ -1,3 +1,4 @@
+import { HoloMember } from "@/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { iconMapping } from "./icon-mapping";
@@ -31,4 +32,17 @@ export function getIconPath(
 		return "/images/fallback-avatar.svg";
 	}
 	return `/images/hololive/icon/${subdir}${memberId}.png`;
+}
+
+/**
+ * メンバーデータからチームスラグ（URLパス用）を決定する。
+ * DEV_IS メンバーは branch='JP' だが generation で判別。
+ */
+export function getTeamSlug(member: HoloMember): string {
+	if (member.branch === "EN") return "hololive-en";
+	if (member.branch === "ID") return "hololive-id";
+	if (member.generation === "ReGLOSS" || member.generation === "FLOW GLOW") {
+		return "devis";
+	}
+	return "hololive-jp";
 }
