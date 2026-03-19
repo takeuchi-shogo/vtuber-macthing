@@ -1,4 +1,5 @@
 import { HoloMember } from '@/types'
+import { getIconPath } from '@/lib/utils'
 export const idGen3Members: HoloMember[] = [
   {
     id: 'vestia_zeta',

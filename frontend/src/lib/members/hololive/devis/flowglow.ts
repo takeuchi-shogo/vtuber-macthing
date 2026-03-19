@@ -1,4 +1,5 @@
 import { HoloMember } from '@/types'
+import { getIconPath } from '@/lib/utils'
 export const flowglowMembers: HoloMember[] = [
   {
     id: 'isaki_riona',
