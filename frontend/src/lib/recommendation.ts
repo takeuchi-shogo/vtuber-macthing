@@ -22,16 +22,19 @@ export function calculateRecommendation(
 		const matchReasons: string[] = [];
 
 		// コンテンツタイプマッチング（重み: 30%）
-		const matchingContentTypes = answers.contentTypes.filter((ct) =>
-			member.contentTypes.includes(ct),
-		);
-		if (matchingContentTypes.length > 0) {
-			score += 30 * (matchingContentTypes.length / answers.contentTypes.length);
+		if (answers.contentTypes.length > 0) {
+			const matchingContentTypes = answers.contentTypes.filter((ct) =>
+				member.contentTypes.includes(ct),
+			);
+			if (matchingContentTypes.length > 0) {
+				score +=
+					30 * (matchingContentTypes.length / answers.contentTypes.length);
 
-			const matchedContent = matchingContentTypes
-				.map((ct) => CONTENT_TYPE_LABELS[ct])
-				.join("・");
-			matchReasons.push(`${matchedContent}が得意`);
+				const matchedContent = matchingContentTypes
+					.map((ct) => CONTENT_TYPE_LABELS[ct])
+					.join("・");
+				matchReasons.push(`${matchedContent}が得意`);
+			}
 		}
 
 		// 性格マッチング（重み: 25%）
@@ -53,16 +56,18 @@ export function calculateRecommendation(
 		}
 
 		// 時間帯マッチング（重み: 15%）
-		const matchingTimeSlots = answers.timeSlots.filter((ts) =>
-			member.typicalStreamTimes.includes(ts),
-		);
-		if (matchingTimeSlots.length > 0) {
-			score += 15 * (matchingTimeSlots.length / answers.timeSlots.length);
+		if (answers.timeSlots.length > 0) {
+			const matchingTimeSlots = answers.timeSlots.filter((ts) =>
+				member.typicalStreamTimes.includes(ts),
+			);
+			if (matchingTimeSlots.length > 0) {
+				score += 15 * (matchingTimeSlots.length / answers.timeSlots.length);
 
-			const matchedTimes = matchingTimeSlots
-				.map((ts) => TIME_SLOT_LABELS[ts])
-				.join("・");
-			matchReasons.push(`${matchedTimes}に配信が多い`);
+				const matchedTimes = matchingTimeSlots
+					.map((ts) => TIME_SLOT_LABELS[ts])
+					.join("・");
+				matchReasons.push(`${matchedTimes}に配信が多い`);
+			}
 		}
 
 		// 配信スタイルマッチング（重み: 10%）
