@@ -6,6 +6,7 @@ import {
 	BRANCH_LABELS,
 	CONTENT_TYPE_SHORT_LABELS,
 } from "@/lib/constants";
+import { getTeamSlug as getTeamSlugUtil } from "@/lib/utils";
 import { HoloMember, ContentType } from "@/types";
 import { Card, CardBody, Chip } from "@heroui/react";
 import { Calendar, ExternalLink, Globe } from "lucide-react";
@@ -23,22 +24,7 @@ export function MemberListCard({
 	showDetails = false,
 	teamSlug,
 }: MemberListCardProps) {
-	// チームスラグを自動決定
-	const getTeamSlug = () => {
-		if (teamSlug) return teamSlug;
-
-		// メンバーの所属から自動判定
-		if (member.branch === "JP") return "hololive-jp";
-		if (member.branch === "EN") return "hololive-en";
-		if (member.branch === "ID") return "hololive-id";
-
-		// DEV_ISの場合は世代から判定
-		if (member.generation === "ReGLOSS" || member.generation === "FLOW GLOW") {
-			return "devis";
-		}
-
-		return "hololive-jp"; // デフォルト
-	};
+	const resolvedSlug = teamSlug || getTeamSlugUtil(member);
 
 	return (
 		<Card className="hover:shadow-lg transition-all duration-300 hover:scale-105">
@@ -126,7 +112,7 @@ export function MemberListCard({
 					<div className="flex flex-col sm:flex-row gap-2 w-full pt-4">
 						<Button
 							as={Link}
-							href={`/member/${getTeamSlug()}/${member.id}`}
+							href={`/member/${resolvedSlug}/${member.id}`}
 							variant="flat"
 							size="sm"
 							className="flex-1"
