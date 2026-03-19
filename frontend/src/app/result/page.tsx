@@ -1,6 +1,6 @@
 'use client'
 
-import { MemberCard } from '@/components/member-card'
+import { MemberCard } from '@/components/member'
 import { calculateRecommendation } from '@/lib/recommendation'
 import { RecommendationResult, UserAnswers } from '@/types'
 import { Spinner } from '@heroui/react'
