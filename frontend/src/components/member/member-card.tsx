@@ -5,6 +5,7 @@ import { HoloMember } from '@/types'
 import { Card, CardBody, CardHeader, Chip } from '@heroui/react'
 import { Twitter, Youtube } from 'lucide-react'
 import Image from 'next/image'
+import { useState } from 'react'
 
 interface MemberCardProps {
   member: HoloMember
@@ -20,6 +21,7 @@ export function MemberCard({
   isMain = false,
 }: MemberCardProps) {
   const matchPercentage = Math.round(score)
+  const [imgSrc, setImgSrc] = useState(member.profileImage)
 
   return (
     <Card className={`w-full ${isMain ? 'border-2 border-blue-500' : ''}`}>
@@ -43,14 +45,12 @@ export function MemberCard({
         <div className="flex gap-4">
           <div className="w-32 h-32 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0 relative">
             <Image
-              src={member.profileImage}
+              src={imgSrc}
               alt={member.nameJP || member.name}
               fill
               className="object-cover"
               sizes="128px"
-              onError={() => {
-                // フォールバック処理はNext.js Imageが自動的に処理
-              }}
+              onError={() => setImgSrc('/images/fallback-avatar.svg')}
             />
           </div>
           <div className="flex-1">
