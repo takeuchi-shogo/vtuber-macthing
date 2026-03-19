@@ -1,4 +1,5 @@
 import { HoloMember } from '@/types'
+import { getIconPath } from '@/lib/utils'
 export const justiceMembers: HoloMember[] = [
   {
     id: 'elizabeth_rose_bloodflame',
