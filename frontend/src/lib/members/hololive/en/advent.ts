@@ -1,14 +1,5 @@
 import { HoloMember } from '@/types'
-import { iconMapping } from '../../../icon-mapping'
-
-// アイコンパスを取得するヘルパー関数
-function getIconPath(memberId: string): string {
-  const fileName = iconMapping[memberId]
-  return fileName
-    ? `/images/hololive/icon/en/${fileName}`
-    : `/images/hololive/icon/en/${memberId}.png`
-}
-
+import { getIconPath } from '@/lib/utils'
 export const adventMembers: HoloMember[] = [
   {
     id: 'shiori_novella',
@@ -25,7 +16,7 @@ export const adventMembers: HoloMember[] = [
     languages: ['EN'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('shiori_novella'),
+    profileImage: getIconPath('shiori_novella', 'EN'),
     channelUrl: 'https://www.youtube.com/@ShioriNovella',
     twitterUrl: 'https://twitter.com/shiorinovella',
     catchphrase: 'Sho cute!',
@@ -45,7 +36,7 @@ export const adventMembers: HoloMember[] = [
     languages: ['EN'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('koseki_bijou'),
+    profileImage: getIconPath('koseki_bijou', 'EN'),
     channelUrl: 'https://www.youtube.com/@KosekiBijou',
     twitterUrl: 'https://twitter.com/kosekibijou',
     catchphrase: 'Biboo!',
@@ -65,7 +56,7 @@ export const adventMembers: HoloMember[] = [
     languages: ['EN'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('nerissa_ravencroft'),
+    profileImage: getIconPath('nerissa_ravencroft', 'EN'),
     channelUrl: 'https://www.youtube.com/@NerissaRavencroft',
     twitterUrl: 'https://twitter.com/nerissaravencroft',
     catchphrase: 'Jailbirds!',
@@ -86,7 +77,7 @@ export const adventMembers: HoloMember[] = [
     languages: ['EN', 'JP'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('fuwawa_abyssgard'),
+    profileImage: getIconPath('fuwawa_abyssgard', 'EN'),
     channelUrl: 'https://www.youtube.com/@FuwawaAbyssgard',
     twitterUrl: 'https://twitter.com/fuwamoco_en',
     catchphrase: 'Bau Bau!',
@@ -106,7 +97,7 @@ export const adventMembers: HoloMember[] = [
     languages: ['EN', 'JP'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('mococo_abyssgard'),
+    profileImage: getIconPath('mococo_abyssgard', 'EN'),
     channelUrl: 'https://www.youtube.com/@MococoAbyssgard',
     twitterUrl: 'https://twitter.com/fuwamoco_en',
     catchphrase: 'Bau Bau!',

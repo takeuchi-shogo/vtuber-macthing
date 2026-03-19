@@ -1,14 +1,5 @@
 import { HoloMember } from '@/types'
-import { iconMapping } from '../../../icon-mapping'
-
-// アイコンパスを取得するヘルパー関数
-function getIconPath(memberId: string): string {
-  const fileName = iconMapping[memberId]
-  return fileName
-    ? `/images/hololive/icon/id/${fileName}`
-    : `/images/fallback-avatar.svg`
-}
-
+import { getIconPath } from '@/lib/utils'
 export const idGen1Members: HoloMember[] = [
   {
     id: 'ayunda_risu',
@@ -25,7 +16,7 @@ export const idGen1Members: HoloMember[] = [
     languages: ['ID', 'EN', 'JP'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('ayunda_risu'),
+    profileImage: getIconPath('ayunda_risu', 'ID'),
     channelUrl: 'https://www.youtube.com/@AyundaRisu',
     twitterUrl: 'https://twitter.com/ayunda_risu',
     catchphrase: 'Risuners!',
@@ -46,7 +37,7 @@ export const idGen1Members: HoloMember[] = [
     languages: ['ID', 'EN'],
     typicalStreamTimes: ['evening', 'late_night'],
     streamLength: 'long',
-    profileImage: getIconPath('moona_hoshinova'),
+    profileImage: getIconPath('moona_hoshinova', 'ID'),
     channelUrl: 'https://www.youtube.com/@MoonaHoshinova',
     twitterUrl: 'https://twitter.com/moonahoshinova',
     catchphrase: 'Moonafic!',
@@ -66,7 +57,7 @@ export const idGen1Members: HoloMember[] = [
     languages: ['ID', 'EN', 'JP', 'KR'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('airani_iofifteen'),
+    profileImage: getIconPath('airani_iofifteen', 'ID'),
     channelUrl: 'https://www.youtube.com/@AiraniIofifteen',
     twitterUrl: 'https://twitter.com/airaniiofifteen',
     catchphrase: 'Iofi!',

@@ -1,14 +1,5 @@
 import { HoloMember } from '@/types'
-import { iconMapping } from '../../../icon-mapping'
-
-// アイコンパスを取得するヘルパー関数
-function getIconPath(memberId: string): string {
-  const fileName = iconMapping[memberId]
-  return fileName
-    ? `/images/hololive/icon/devis/${fileName}`
-    : `/images/hololive/icon/devis/${memberId}.png`
-}
-
+import { getIconPath } from '@/lib/utils'
 export const flowglowMembers: HoloMember[] = [
   {
     id: 'isaki_riona',
@@ -25,7 +16,7 @@ export const flowglowMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('isaki_riona'),
+    profileImage: getIconPath('isaki_riona', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@IsakiRiona',
     twitterUrl: 'https://twitter.com/isakiriona',
     catchphrase: 'りおなー！',
@@ -46,7 +37,7 @@ export const flowglowMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('koganei_niko'),
+    profileImage: getIconPath('koganei_niko', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@KoganeiNiko',
     twitterUrl: 'https://twitter.com/koganeiniko',
     catchphrase: 'にこにこ〜！',
@@ -67,7 +58,7 @@ export const flowglowMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['evening', 'late_night'],
     streamLength: 'long',
-    profileImage: getIconPath('mizumiya_su'),
+    profileImage: getIconPath('mizumiya_su', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@MizumiyaSu',
     twitterUrl: 'https://twitter.com/mizumiyasu',
     catchphrase: 'すーちゃん！',
@@ -88,7 +79,7 @@ export const flowglowMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'long',
-    profileImage: getIconPath('rindo_chihaya'),
+    profileImage: getIconPath('rindo_chihaya', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@RindoChihaya',
     twitterUrl: 'https://twitter.com/rindochihaya',
     catchphrase: 'ちはやー！',
@@ -109,7 +100,7 @@ export const flowglowMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('kikirara_vivi'),
+    profileImage: getIconPath('kikirara_vivi', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@KikiraraVivi',
     twitterUrl: 'https://twitter.com/kikiraravivi',
     catchphrase: 'ヴィヴィ〜！',

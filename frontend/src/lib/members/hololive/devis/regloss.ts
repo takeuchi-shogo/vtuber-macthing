@@ -1,14 +1,5 @@
 import { HoloMember } from '@/types'
-import { iconMapping } from '../../../icon-mapping'
-
-// アイコンパスを取得するヘルパー関数
-function getIconPath(memberId: string): string {
-  const fileName = iconMapping[memberId]
-  return fileName
-    ? `/images/hololive/icon/devis/${fileName}`
-    : `/images/hololive/icon/devis/${memberId}.png`
-}
-
+import { getIconPath } from '@/lib/utils'
 export const reglossMembers: HoloMember[] = [
   {
     id: 'hiodoshi_ao',
@@ -25,7 +16,7 @@ export const reglossMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('hiodoshi_ao'),
+    profileImage: getIconPath('hiodoshi_ao', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@HiodoshiAo',
     twitterUrl: 'https://twitter.com/hiodoshiao',
     catchphrase: 'あおくん！',
@@ -46,7 +37,7 @@ export const reglossMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('otonose_kanade'),
+    profileImage: getIconPath('otonose_kanade', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@OtonoseKanade',
     twitterUrl: 'https://twitter.com/otonosekanade',
     catchphrase: 'かなでー！',
@@ -67,7 +58,7 @@ export const reglossMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('ichijou_ririka'),
+    profileImage: getIconPath('ichijou_ririka', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@IchijouRirika',
     twitterUrl: 'https://twitter.com/ichijouririka',
     catchphrase: 'りりかちゃん！',
@@ -88,7 +79,7 @@ export const reglossMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['evening', 'late_night'],
     streamLength: 'long',
-    profileImage: getIconPath('juufuutei_raden'),
+    profileImage: getIconPath('juufuutei_raden', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@JuufuuteiRaden',
     twitterUrl: 'https://twitter.com/juufuuteiraden',
     catchphrase: 'らでんですわ！',
@@ -109,7 +100,7 @@ export const reglossMembers: HoloMember[] = [
     languages: ['JP'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('todoroki_hajime'),
+    profileImage: getIconPath('todoroki_hajime', 'DEV_IS'),
     channelUrl: 'https://www.youtube.com/@TodorokiHajime',
     twitterUrl: 'https://twitter.com/todorokihajime',
     catchphrase: 'はじめちゃん！',

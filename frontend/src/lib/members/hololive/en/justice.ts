@@ -1,14 +1,5 @@
 import { HoloMember } from '@/types'
-import { iconMapping } from '../../../icon-mapping'
-
-// アイコンパスを取得するヘルパー関数
-function getIconPath(memberId: string): string {
-  const fileName = iconMapping[memberId]
-  return fileName
-    ? `/images/hololive/icon/en/${fileName}`
-    : `/images/hololive/icon/en/${memberId}.png`
-}
-
+import { getIconPath } from '@/lib/utils'
 export const justiceMembers: HoloMember[] = [
   {
     id: 'elizabeth_rose_bloodflame',
@@ -25,7 +16,7 @@ export const justiceMembers: HoloMember[] = [
     languages: ['EN'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('elizabeth_rose_bloodflame'),
+    profileImage: getIconPath('elizabeth_rose_bloodflame', 'EN'),
     channelUrl: 'https://www.youtube.com/@holoen_erbloodflame',
     twitterUrl: 'https://twitter.com/erbloodflame',
     catchphrase: 'Justice!',
@@ -46,7 +37,7 @@ export const justiceMembers: HoloMember[] = [
     languages: ['EN'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('gigi_murin'),
+    profileImage: getIconPath('gigi_murin', 'EN'),
     channelUrl: 'https://www.youtube.com/@holoen_gigimurin',
     twitterUrl: 'https://twitter.com/gigimurin',
     catchphrase: 'Gigi Time!',
@@ -67,7 +58,7 @@ export const justiceMembers: HoloMember[] = [
     languages: ['EN'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('cecilia_immergreen'),
+    profileImage: getIconPath('cecilia_immergreen', 'EN'),
     channelUrl: 'https://www.youtube.com/@holoen_ceciliaimmergreen',
     twitterUrl: 'https://twitter.com/ceciliaimmer',
     catchphrase: 'Green Tea Time!',
@@ -88,7 +79,7 @@ export const justiceMembers: HoloMember[] = [
     languages: ['EN'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'long',
-    profileImage: getIconPath('raora_panthera'),
+    profileImage: getIconPath('raora_panthera', 'EN'),
     channelUrl: 'https://www.youtube.com/@holoen_raorapanthera',
     twitterUrl: 'https://twitter.com/raorapanthera',
     catchphrase: 'Raora Time!',

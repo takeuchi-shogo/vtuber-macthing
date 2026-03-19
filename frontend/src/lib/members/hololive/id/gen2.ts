@@ -1,14 +1,5 @@
 import { HoloMember } from '@/types'
-import { iconMapping } from '../../../icon-mapping'
-
-// アイコンパスを取得するヘルパー関数
-function getIconPath(memberId: string): string {
-  const fileName = iconMapping[memberId]
-  return fileName
-    ? `/images/hololive/icon/id/${fileName}`
-    : `/images/hololive/icon/id/${memberId}.png`
-}
-
+import { getIconPath } from '@/lib/utils'
 export const idGen2Members: HoloMember[] = [
   {
     id: 'kureiji_ollie',
@@ -25,7 +16,7 @@ export const idGen2Members: HoloMember[] = [
     languages: ['ID', 'EN', 'JP'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'long',
-    profileImage: getIconPath('kureiji_ollie'),
+    profileImage: getIconPath('kureiji_ollie', 'ID'),
     channelUrl: 'https://www.youtube.com/@KureijiOllie',
     twitterUrl: 'https://twitter.com/kureijiollie',
     catchphrase: 'Apex Predator!',
@@ -46,7 +37,7 @@ export const idGen2Members: HoloMember[] = [
     languages: ['ID', 'EN'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('anya_melfissa'),
+    profileImage: getIconPath('anya_melfissa', 'ID'),
     channelUrl: 'https://www.youtube.com/@AnyaMelfissa',
     twitterUrl: 'https://twitter.com/anyamelfissa',
     catchphrase: 'Anya~',
@@ -67,7 +58,7 @@ export const idGen2Members: HoloMember[] = [
     languages: ['ID', 'EN'],
     typicalStreamTimes: ['evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('pavolia_reine'),
+    profileImage: getIconPath('pavolia_reine', 'ID'),
     channelUrl: 'https://www.youtube.com/@PavoliaReine',
     twitterUrl: 'https://twitter.com/pavoliareine',
     catchphrase: 'Reine!',

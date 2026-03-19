@@ -1,14 +1,5 @@
 import { HoloMember } from '@/types'
-import { iconMapping } from '../../../icon-mapping'
-
-// アイコンパスを取得するヘルパー関数
-function getIconPath(memberId: string): string {
-  const fileName = iconMapping[memberId]
-  return fileName
-    ? `/images/hololive/icon/id/${fileName}`
-    : `/images/hololive/icon/id/${memberId}.png`
-}
-
+import { getIconPath } from '@/lib/utils'
 export const idGen3Members: HoloMember[] = [
   {
     id: 'vestia_zeta',
@@ -24,7 +15,7 @@ export const idGen3Members: HoloMember[] = [
     languages: ['ID', 'EN'],
     typicalStreamTimes: ['evening'],
     streamLength: 'long',
-    profileImage: getIconPath('vestia_zeta'),
+    profileImage: getIconPath('vestia_zeta', 'ID'),
     channelUrl: 'https://www.youtube.com/@VestiaZeta',
     twitterUrl: 'https://twitter.com/vestiazeta',
     catchphrase: 'Zeta desu!',
@@ -45,7 +36,7 @@ export const idGen3Members: HoloMember[] = [
     languages: ['ID', 'EN'],
     typicalStreamTimes: ['morning', 'afternoon', 'evening', 'late_night'],
     streamLength: 'long',
-    profileImage: getIconPath('kaela_kovalskia'),
+    profileImage: getIconPath('kaela_kovalskia', 'ID'),
     channelUrl: 'https://www.youtube.com/@KaelaKovalskia',
     twitterUrl: 'https://twitter.com/kaelakovalskia',
     catchphrase: 'Kaela Time!',
@@ -65,7 +56,7 @@ export const idGen3Members: HoloMember[] = [
     languages: ['ID', 'JP'],
     typicalStreamTimes: ['afternoon', 'evening'],
     streamLength: 'medium',
-    profileImage: getIconPath('kobo_kanaeru'),
+    profileImage: getIconPath('kobo_kanaeru', 'ID'),
     channelUrl: 'https://www.youtube.com/@KoboKanaeru',
     twitterUrl: 'https://twitter.com/kobokanaeru',
     catchphrase: 'こぼちゃん！',
