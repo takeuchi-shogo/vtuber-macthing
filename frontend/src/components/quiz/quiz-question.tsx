@@ -1,9 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Question } from '@/types'
 import { Button } from '@/components/ui'
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react'
+import { QuizCardOption } from './quiz-card-option'
+import { QuizSlider } from './quiz-slider'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 interface QuizQuestionProps {
   question: Question
@@ -13,6 +17,40 @@ interface QuizQuestionProps {
   onPrevious: () => void
   onReset: () => void
   canGoPrevious: boolean
+}
+
+/** Subtle background hue shift per question index */
+const QUESTION_GRADIENTS = [
+  'from-[#00B8ED]/5 to-[#7c3aed]/5',
+  'from-[#7c3aed]/5 to-[#ec4899]/5',
+  'from-[#ec4899]/5 to-[#f59e0b]/5',
+  'from-[#f59e0b]/5 to-[#10b981]/5',
+  'from-[#10b981]/5 to-[#00B8ED]/5',
+  'from-[#00B8ED]/5 to-[#6366f1]/5',
+  'from-[#6366f1]/5 to-[#f43f5e]/5',
+  'from-[#f43f5e]/5 to-[#00B8ED]/5',
+  'from-[#00B8ED]/5 to-[#7c3aed]/5',
+]
+
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 80 : -80,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -80 : 80,
+    opacity: 0,
+  }),
+}
+
+const reducedMotionVariants = {
+  enter: { opacity: 0 },
+  center: { opacity: 1 },
+  exit: { opacity: 0 },
 }
 
 export function QuizQuestion({
@@ -28,6 +66,8 @@ export function QuizQuestion({
     string | string[] | number | null
   >(null)
   const [selectedMultiple, setSelectedMultiple] = useState<string[]>([])
+  const [direction, setDirection] = useState(1)
+  const prefersReducedMotion = useReducedMotion()
 
   const handleSingleSelect = (value: string) => {
     setSelectedValue(value)
@@ -50,6 +90,7 @@ export function QuizQuestion({
   }
 
   const handleSubmit = () => {
+    setDirection(1)
     if (question.type === 'multiple') {
       if (selectedMultiple.length > 0) {
         onAnswer(selectedMultiple)
@@ -61,147 +102,142 @@ export function QuizQuestion({
     }
   }
 
+  const handlePrevious = () => {
+    setDirection(-1)
+    setSelectedValue(null)
+    setSelectedMultiple([])
+    onPrevious()
+  }
+
   const isValid =
     question.type === 'multiple'
       ? selectedMultiple.length > 0
       : selectedValue !== null
 
+  const gradient = QUESTION_GRADIENTS[currentIndex % QUESTION_GRADIENTS.length]
+
+  const variants = prefersReducedMotion ? reducedMotionVariants : slideVariants
+
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-sm text-gray-500">
-            質問 {currentIndex + 1} / {totalQuestions}
-          </span>
-          <div className="flex items-center gap-4">
+    <div className={`relative rounded-2xl bg-gradient-to-br ${gradient} p-1`}>
+      <div className="max-w-2xl mx-auto p-6">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-6">
+            <span className="text-sm font-medium text-[var(--text-muted)]">
+              質問 {currentIndex + 1} / {totalQuestions}
+            </span>
             <Button
               variant="ghost"
               size="sm"
               onPress={onReset}
               startContent={<Home size={16} />}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)]"
             >
               最初から
             </Button>
-            <div className="w-48 bg-gray-200 rounded-full h-2">
-              <div
-                className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                style={{
-                  width: `${((currentIndex + 1) / totalQuestions) * 100}%`,
-                }}
-              />
-            </div>
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold mb-2">{question.title}</h2>
-        {question.description && (
-          <p className="text-gray-600">{question.description}</p>
-        )}
-      </div>
-
-      <div className="space-y-4 mb-8">
-        {question.type === 'single' && question.options && (
-          <div className="space-y-3">
-            {question.options.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => handleSingleSelect(option.value)}
-                className={`w-full text-left p-4 rounded-lg border transition-all ${
-                  selectedValue === option.value
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="font-medium">{option.label}</div>
-                {option.description && (
-                  <div className="text-sm text-gray-500 mt-1">
-                    {option.description}
-                  </div>
-                )}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {question.type === 'multiple' && question.options && (
-          <div className="space-y-3">
-            {question.maxSelections && (
-              <p className="text-sm text-gray-500">
-                最大{question.maxSelections}つまで選択可能（
-                {selectedMultiple.length}個選択中）
+        {/* Question content with transitions */}
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={question.id}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={
+              prefersReducedMotion
+                ? { duration: 0.15 }
+                : { type: 'spring', stiffness: 300, damping: 30 }
+            }
+          >
+            <h2 className="text-2xl font-bold mb-2 text-[var(--text-primary)]">
+              {question.title}
+            </h2>
+            {question.description && (
+              <p className="text-[var(--text-muted)] mb-6">
+                {question.description}
               </p>
             )}
-            {question.options.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => handleMultipleSelect(option.value)}
-                className={`w-full text-left p-4 rounded-lg border transition-all ${
-                  selectedMultiple.includes(option.value)
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="font-medium">{option.label}</div>
-                {option.description && (
-                  <div className="text-sm text-gray-500 mt-1">
-                    {option.description}
-                  </div>
-                )}
-              </button>
-            ))}
-          </div>
-        )}
 
-        {question.type === 'slider' && question.sliderConfig && (
-          <div className="space-y-4">
-            <div className="flex justify-between text-sm text-gray-600">
-              <span>{question.sliderConfig.labels[0]}</span>
-              <span>{question.sliderConfig.labels[1]}</span>
-            </div>
-            <input
-              type="range"
-              min={question.sliderConfig.min}
-              max={question.sliderConfig.max}
-              step={question.sliderConfig.step}
-              value={(selectedValue as number) || question.sliderConfig.min}
-              onChange={(e) => handleSliderChange(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-            <div className="flex justify-between text-xs text-gray-400">
-              {Array.from(
-                {
-                  length:
-                    question.sliderConfig.max - question.sliderConfig.min + 1,
-                },
-                (_, i) => i + question.sliderConfig!.min
-              ).map((value) => (
-                <span key={value}>{value}</span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+            <div className="space-y-3 mb-8" role="listbox">
+              {/* Single select */}
+              {question.type === 'single' &&
+                question.options?.map((option) => (
+                  <QuizCardOption
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={selectedValue === option.value}
+                    onSelect={() => handleSingleSelect(option.value)}
+                  />
+                ))}
 
-      <div className="flex justify-between">
-        <Button
-          variant="flat"
-          onPress={onPrevious}
-          isDisabled={!canGoPrevious}
-          startContent={<ChevronLeft size={16} />}
-          className="hover:bg-gray-100"
-        >
-          前の質問
-        </Button>
-        <Button
-          color="primary"
-          onPress={handleSubmit}
-          isDisabled={!isValid}
-          endContent={<ChevronRight size={16} />}
-          className="hover:scale-105 transition-transform"
-        >
-          {currentIndex === totalQuestions - 1 ? '結果を見る' : '次の質問'}
-        </Button>
+              {/* Multiple select */}
+              {question.type === 'multiple' && (
+                <>
+                  {question.maxSelections && (
+                    <p className="text-sm text-[var(--text-muted)] mb-2">
+                      最大{question.maxSelections}つまで選択可能（
+                      {selectedMultiple.length}個選択中）
+                    </p>
+                  )}
+                  {question.options?.map((option) => (
+                    <QuizCardOption
+                      key={option.value}
+                      label={option.label}
+                      description={option.description}
+                      selected={selectedMultiple.includes(option.value)}
+                      onSelect={() => handleMultipleSelect(option.value)}
+                    />
+                  ))}
+                </>
+              )}
+
+              {/* Slider */}
+              {question.type === 'slider' && question.sliderConfig && (
+                <div className="pt-4 pb-2">
+                  <QuizSlider
+                    min={question.sliderConfig.min}
+                    max={question.sliderConfig.max}
+                    step={question.sliderConfig.step}
+                    value={
+                      (selectedValue as number) ?? question.sliderConfig.min
+                    }
+                    onChange={handleSliderChange}
+                    leftLabel={question.sliderConfig.labels[0]}
+                    rightLabel={question.sliderConfig.labels[1]}
+                  />
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Navigation */}
+        <div className="flex justify-between pt-2">
+          <Button
+            variant="flat"
+            onPress={handlePrevious}
+            isDisabled={!canGoPrevious}
+            startContent={<ChevronLeft size={16} />}
+            className="hover:bg-[var(--bg-muted)]"
+          >
+            前の質問
+          </Button>
+          <Button
+            color="primary"
+            onPress={handleSubmit}
+            isDisabled={!isValid}
+            endContent={<ChevronRight size={16} />}
+            glowColor="#00B8ED"
+          >
+            {currentIndex === totalQuestions - 1 ? '結果を見る' : '次の質問'}
+          </Button>
+        </div>
       </div>
     </div>
   )
