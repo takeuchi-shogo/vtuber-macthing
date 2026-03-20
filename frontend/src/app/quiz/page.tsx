@@ -2,6 +2,7 @@
 
 import { QuizQuestion, QuizProgress } from '@/components/quiz'
 import { GlassCard } from '@/components/ui'
+import { GlitchText } from '@/components/effects/glitch-text'
 import { useQuiz } from '@/hooks/use-quiz'
 import { Spinner } from '@heroui/react'
 import { useRouter } from 'next/navigation'
@@ -55,9 +56,13 @@ export default function QuizPage() {
       <div className="container mx-auto px-4 max-w-3xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-[var(--text-primary)]">
+          <GlitchText
+            as="h1"
+            intensity="medium"
+            className="text-3xl font-bold mb-2 text-[var(--text-primary)]"
+          >
             ホロライブVtuber診断
-          </h1>
+          </GlitchText>
           <p className="text-[var(--text-muted)]">
             あなたにぴったりのホロライブメンバーを見つけましょう
           </p>

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui'
 import { GenerationThemeContext } from '@/components/theme/generation-theme-provider'
+import { NeonText } from '@/components/effects/neon-text'
 import { cn } from '@/lib/utils'
 
 const NAV_LINKS = [
@@ -41,9 +42,11 @@ export function Header() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-lg font-bold text-[var(--text-primary)] transition-opacity hover:opacity-80"
+          className="text-lg font-bold transition-opacity hover:opacity-80"
         >
-          ホロライブ診断
+          <NeonText color="#00B8ED" flicker={false}>
+            ホロライブ診断
+          </NeonText>
         </Link>
 
         {/* Desktop nav */}

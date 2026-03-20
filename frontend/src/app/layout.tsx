@@ -4,6 +4,8 @@ import { ThemeProvider } from 'next-themes'
 import { HeroUIProvider } from '@/providers/heroui-provider'
 import { Header, Footer } from '@/components/layout'
 import { PageTransition } from '@/components/animation/page-transition'
+import { LoadingScreen } from '@/components/effects/loading-screen'
+import { Scanlines } from '@/components/effects/scanlines'
 import './globals.css'
 
 const notoSansJP = Noto_Sans_JP({
@@ -42,15 +44,18 @@ export default function RootLayout({
       <body
         className={`${notoSansJP.variable} ${inter.variable} ${zenKaku.variable} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <HeroUIProvider>
-            <Header />
-            <main className="min-h-screen">
-              <PageTransition>{children}</PageTransition>
-            </main>
-            <Footer />
-          </HeroUIProvider>
-        </ThemeProvider>
+        <LoadingScreen />
+        <Scanlines intensity="subtle">
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <HeroUIProvider>
+              <Header />
+              <main className="min-h-screen">
+                <PageTransition>{children}</PageTransition>
+              </main>
+              <Footer />
+            </HeroUIProvider>
+          </ThemeProvider>
+        </Scanlines>
       </body>
     </html>
   )

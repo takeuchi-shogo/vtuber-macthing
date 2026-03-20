@@ -4,6 +4,7 @@ import { Button, GlassCard } from '@/components/ui'
 import { GlowEffect } from '@/components/animation/glow-effect'
 import { ParticleBackground } from '@/components/animation/particle-background'
 import { ScrollReveal } from '@/components/animation/scroll-reveal'
+import { GlitchText } from '@/components/effects/glitch-text'
 import {
   StaggerContainer,
   staggerItemVariants,
@@ -72,9 +73,13 @@ export default function MemberPage() {
         <div className="container relative z-10 mx-auto px-4">
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center">
-              <h1 className="mb-4 text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
+              <GlitchText
+                as="h1"
+                intensity="medium"
+                className="mb-4 text-4xl font-bold text-[var(--text-primary)] md:text-5xl"
+              >
                 メンバー一覧
-              </h1>
+              </GlitchText>
               <p className="text-lg text-[var(--text-secondary)]">
                 ホロライブプロダクション所属のVTuberを所属別に閲覧できます。
                 各メンバーの詳細情報や公式チャンネルへのリンクをご確認いただけます。

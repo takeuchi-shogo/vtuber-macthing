@@ -11,6 +11,7 @@ import {
   generationThemes,
   generationToThemeKey,
 } from '@/components/theme/theme-config'
+import { NeonText } from '@/components/effects/neon-text'
 import { HoloMember } from '@/types'
 import { Users, AlertCircle, SearchX } from 'lucide-react'
 import Link from 'next/link'
@@ -139,16 +140,14 @@ export default function TeamPageClient({
                     <div className="relative z-10 p-6 sm:p-8">
                       <div className="flex items-center justify-between flex-wrap gap-4">
                         <div>
-                          <h2
-                            className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]"
-                            style={
-                              {
-                                textShadow: `0 0 20px ${theme.primary}40`,
-                              } as CSSProperties
-                            }
+                          <NeonText
+                            as="h2"
+                            color={theme.primary}
+                            flicker={false}
+                            className="text-2xl sm:text-3xl font-bold"
                           >
                             {generation}
-                          </h2>
+                          </NeonText>
                           <p className="mt-1 text-[var(--text-secondary)]">
                             {generationMembers.length} メンバー
                           </p>
