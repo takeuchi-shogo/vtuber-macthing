@@ -1,261 +1,286 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui";
+import { Button, GlassCard, Chip } from '@/components/ui'
+import { ScrollReveal } from '@/components/animation/scroll-reveal'
+import { GlowEffect } from '@/components/animation/glow-effect'
+import { Breadcrumb } from '@/components/layout/breadcrumb'
+import { GenerationThemeProvider } from '@/components/theme/generation-theme-provider'
+import { useGenerationTheme } from '@/components/theme/use-generation-theme'
+import { MemberDetailHero } from '@/components/member/member-detail-hero'
 import {
-	BRANCH_COLORS,
-	BRANCH_LABELS,
-	CONTENT_TYPE_SHORT_LABELS,
-	PERSONALITY_SHORT_LABELS,
-	STREAMING_STYLE_SHORT_LABELS,
-	STREAM_LENGTH_SHORT_LABELS,
-} from "@/lib/constants";
-import { HoloMember } from "@/types";
-import { Card, CardBody, CardHeader, Chip } from "@heroui/react";
+  BRANCH_LABELS,
+  CONTENT_TYPE_SHORT_LABELS,
+  PERSONALITY_SHORT_LABELS,
+  STREAMING_STYLE_SHORT_LABELS,
+  STREAM_LENGTH_SHORT_LABELS,
+  TIME_SLOT_LABELS,
+} from '@/lib/constants'
+import { HoloMember } from '@/types'
 import {
-	ArrowLeft,
-	Calendar,
-	ExternalLink,
-	Globe,
-	Twitter,
-	Youtube,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+  ExternalLink,
+  Gamepad2,
+  Globe,
+  MessageCircle,
+  Mic,
+  Moon,
+  Music,
+  Palette,
+  Sparkles,
+  Timer,
+  Twitter,
+  Users,
+  Youtube,
+  BookOpen,
+} from 'lucide-react'
+import Link from 'next/link'
+import type { ContentType, TimeSlot } from '@/types'
 
 interface TeamConfig {
-	title: string;
-	backUrl: string;
-	backText: string;
+  title: string
+  backUrl: string
+  backText: string
 }
 
 interface MemberDetailClientProps {
-	member: HoloMember;
-	teamConfig: TeamConfig;
-	resolvedParams: {
-		team: string;
-		id: string;
-	};
+  member: HoloMember
+  teamConfig: TeamConfig
+  resolvedParams: {
+    team: string
+    id: string
+  }
 }
 
-export default function MemberDetailClient({
-	member,
-	teamConfig,
-	resolvedParams,
+const CONTENT_TYPE_ICONS: Record<ContentType, React.ReactNode> = {
+  gaming: <Gamepad2 size={16} />,
+  chatting: <MessageCircle size={16} />,
+  singing: <Mic size={16} />,
+  asmr: <Moon size={16} />,
+  drawing: <Palette size={16} />,
+  collab: <Users size={16} />,
+  educational: <BookOpen size={16} />,
+  music_creation: <Music size={16} />,
+}
+
+const TIME_SLOT_ICONS: Record<TimeSlot, string> = {
+  morning: '🌅',
+  afternoon: '☀️',
+  evening: '🌆',
+  late_night: '🌙',
+}
+
+function MemberDetailContent({
+  member,
+  teamConfig,
+  resolvedParams,
 }: MemberDetailClientProps) {
-	return (
-		<div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-			<div className="container mx-auto px-4 py-8">
-				{/* ナビゲーション */}
-				<Button
-					as={Link}
-					href={teamConfig.backUrl}
-					variant="flat"
-					startContent={<ArrowLeft size={16} />}
-					className="mb-6"
-				>
-					{teamConfig.backText}
-				</Button>
+  const { theme } = useGenerationTheme()
+  const displayName = member.nameJP || member.name
 
-				<div className="max-w-4xl mx-auto">
-					{/* メインプロフィール */}
-					<Card className="bg-white/80 backdrop-blur-sm border-0 mb-8">
-						<CardBody className="p-8">
-							<div className="flex flex-col lg:flex-row gap-8">
-								{/* プロフィール画像 */}
-								<div className="flex-shrink-0">
-									<div className="relative w-48 h-48 mx-auto lg:mx-0 rounded-2xl overflow-hidden bg-gray-100">
-										<Image
-											src={member.profileImage}
-											alt={`${member.nameJP || member.name}のアイコン`}
-											fill
-											className="object-cover"
-											sizes="192px"
-											priority
-										/>
-									</div>
-								</div>
+  const breadcrumbItems = [
+    { label: 'ホーム', href: '/' },
+    { label: 'メンバー', href: '/member' },
+    { label: teamConfig.title, href: teamConfig.backUrl },
+    { label: displayName },
+  ]
 
-								{/* 基本情報 */}
-								<div className="flex-1 text-center lg:text-left">
-									<h1 className="text-3xl font-bold text-gray-900 mb-2">
-										{member.nameJP || member.name}
-									</h1>
-									{member.nameJP && (
-										<p className="text-lg text-gray-600 mb-4">{member.name}</p>
-									)}
+  return (
+    <div className="min-h-screen bg-[var(--bg-primary)]">
+      <div className="container mx-auto max-w-4xl px-4 py-8">
+        {/* Breadcrumb */}
+        <div className="mb-6">
+          <Breadcrumb items={breadcrumbItems} />
+        </div>
 
-									<div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-6">
-										<Chip
-											color={BRANCH_COLORS[member.branch]}
-											variant="flat"
-											size="lg"
-										>
-											{BRANCH_LABELS[member.branch]}
-										</Chip>
-										<Chip color="default" variant="flat" size="lg">
-											{member.generation}
-										</Chip>
-									</div>
+        {/* Hero section */}
+        <ScrollReveal>
+          <MemberDetailHero member={member} />
+        </ScrollReveal>
 
-									<p className="text-gray-700 leading-relaxed mb-6">
-										{member.description}
-									</p>
+        {/* Description */}
+        <ScrollReveal delay={0.1}>
+          <GlassCard className="mt-8 p-6 md:p-8" glowColor={theme.primary}>
+            <p className="leading-relaxed text-[var(--text-secondary)]">
+              {member.description}
+            </p>
+          </GlassCard>
+        </ScrollReveal>
 
-									{member.catchphrase && (
-										<blockquote className="text-lg italic text-gray-600 border-l-4 border-blue-500 pl-4 mb-6">
-											「{member.catchphrase}」
-										</blockquote>
-									)}
+        {/* Detail info grid */}
+        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {/* Content types */}
+          <ScrollReveal delay={0.15}>
+            <GlassCard className="p-6" glowColor={theme.primary}>
+              <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
+                主なコンテンツ
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {member.contentTypes.map((type) => (
+                  <Chip key={type} selected glowColor={theme.primary}>
+                    <span className="mr-1.5 inline-flex">
+                      {CONTENT_TYPE_ICONS[type]}
+                    </span>
+                    {CONTENT_TYPE_SHORT_LABELS[type]}
+                  </Chip>
+                ))}
+              </div>
+            </GlassCard>
+          </ScrollReveal>
 
-									{/* アクションボタン */}
-									<div className="flex flex-col sm:flex-row gap-3">
-										<Button
-											as="a"
-											href={member.channelUrl}
-											target="_blank"
-											rel="noopener noreferrer"
-											color="danger"
-											size="lg"
-											startContent={<Youtube size={20} />}
-											className="flex-1 sm:flex-none"
-										>
-											YouTubeチャンネル
-										</Button>
-										{member.twitterUrl && (
-											<Button
-												as="a"
-												href={member.twitterUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-												color="primary"
-												variant="flat"
-												size="lg"
-												startContent={<Twitter size={20} />}
-												className="flex-1 sm:flex-none"
-											>
-												Twitter
-											</Button>
-										)}
-									</div>
-								</div>
-							</div>
-						</CardBody>
-					</Card>
+          {/* Personality traits */}
+          <ScrollReveal delay={0.2}>
+            <GlassCard className="p-6" glowColor={theme.primary}>
+              <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
+                性格特性
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {member.personality.map((trait) => (
+                  <Chip key={trait} selected glowColor={theme.primary}>
+                    <Sparkles size={14} className="mr-1.5" />
+                    {PERSONALITY_SHORT_LABELS[trait]}
+                  </Chip>
+                ))}
+              </div>
+            </GlassCard>
+          </ScrollReveal>
 
-					{/* 詳細情報 */}
-					<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-						{/* 活動情報 */}
-						<Card className="bg-white/80 backdrop-blur-sm border-0">
-							<CardHeader>
-								<h2 className="text-xl font-bold text-gray-900">活動情報</h2>
-							</CardHeader>
-							<CardBody className="space-y-4">
-								<div className="flex items-center space-x-3">
-									<Calendar className="w-5 h-5 text-blue-500" />
-									<div>
-										<p className="text-sm text-gray-600">デビュー日</p>
-										<p className="font-semibold">
-											{new Date(member.debut).toLocaleDateString("ja-JP")}
-										</p>
-									</div>
-								</div>
+          {/* Streaming style */}
+          <ScrollReveal delay={0.25}>
+            <GlassCard className="p-6" glowColor={theme.primary}>
+              <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
+                配信スタイル
+              </h2>
+              <Chip selected glowColor={theme.primary}>
+                {STREAMING_STYLE_SHORT_LABELS[member.streamingStyle]}
+              </Chip>
+            </GlassCard>
+          </ScrollReveal>
 
-								<div className="flex items-center space-x-3">
-									<Globe className="w-5 h-5 text-green-500" />
-									<div>
-										<p className="text-sm text-gray-600">対応言語</p>
-										<p className="font-semibold">
-											{member.languages.join(", ")}
-										</p>
-									</div>
-								</div>
+          {/* Languages */}
+          <ScrollReveal delay={0.3}>
+            <GlassCard className="p-6" glowColor={theme.primary}>
+              <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
+                対応言語
+              </h2>
+              <div className="flex items-center gap-2">
+                <Globe size={18} style={{ color: theme.primary }} />
+                <span className="text-[var(--text-secondary)]">
+                  {member.languages.join(', ')}
+                </span>
+              </div>
+            </GlassCard>
+          </ScrollReveal>
 
-								<div>
-									<p className="text-sm text-gray-600 mb-2">配信の長さ</p>
-									<Chip variant="flat" color="default">
-										{STREAM_LENGTH_SHORT_LABELS[member.streamLength]}
-									</Chip>
-								</div>
-							</CardBody>
-						</Card>
+          {/* Stream time slots */}
+          <ScrollReveal delay={0.35}>
+            <GlassCard className="p-6" glowColor={theme.primary}>
+              <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
+                配信時間帯
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {member.typicalStreamTimes.map((slot) => (
+                  <Chip key={slot} selected glowColor={theme.primary}>
+                    <span className="mr-1.5">{TIME_SLOT_ICONS[slot]}</span>
+                    {TIME_SLOT_LABELS[slot]}
+                  </Chip>
+                ))}
+              </div>
+            </GlassCard>
+          </ScrollReveal>
 
-						{/* コンテンツ・性格 */}
-						<Card className="bg-white/80 backdrop-blur-sm border-0">
-							<CardHeader>
-								<h2 className="text-xl font-bold text-gray-900">特徴</h2>
-							</CardHeader>
-							<CardBody className="space-y-4">
-								<div>
-									<p className="text-sm text-gray-600 mb-2">主なコンテンツ</p>
-									<div className="flex flex-wrap gap-2">
-										{member.contentTypes.map((type) => (
-											<Chip key={type} variant="flat" size="sm">
-												{CONTENT_TYPE_SHORT_LABELS[type]}
-											</Chip>
-										))}
-									</div>
-								</div>
+          {/* Stream length */}
+          <ScrollReveal delay={0.4}>
+            <GlassCard className="p-6" glowColor={theme.primary}>
+              <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
+                配信の長さ
+              </h2>
+              <div className="flex items-center gap-2">
+                <Timer size={18} style={{ color: theme.primary }} />
+                <span className="text-[var(--text-secondary)]">
+                  {STREAM_LENGTH_SHORT_LABELS[member.streamLength]}
+                </span>
+              </div>
+            </GlassCard>
+          </ScrollReveal>
+        </div>
 
-								<div>
-									<p className="text-sm text-gray-600 mb-2">性格特性</p>
-									<div className="flex flex-wrap gap-2">
-										{member.personality.map((trait) => (
-											<Chip
-												key={trait}
-												variant="flat"
-												size="sm"
-												color="primary"
-											>
-												{PERSONALITY_SHORT_LABELS[trait]}
-											</Chip>
-										))}
-									</div>
-								</div>
+        {/* Action buttons */}
+        <ScrollReveal delay={0.45}>
+          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <GlowEffect color="#FF0000">
+              <Button
+                as="a"
+                href={member.channelUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                color="danger"
+                size="lg"
+                startContent={<Youtube size={20} />}
+              >
+                YouTubeチャンネル
+              </Button>
+            </GlowEffect>
+            {member.twitterUrl && (
+              <GlowEffect color="#1DA1F2">
+                <Button
+                  as="a"
+                  href={member.twitterUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="primary"
+                  variant="flat"
+                  size="lg"
+                  startContent={<Twitter size={20} />}
+                >
+                  Twitter
+                </Button>
+              </GlowEffect>
+            )}
+            <GlowEffect color={theme.primary}>
+              <Button
+                as="a"
+                href={`https://hololive.hololivepro.com/talents/${resolvedParams.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="flat"
+                size="lg"
+                endContent={<ExternalLink size={16} />}
+              >
+                公式プロフィール
+              </Button>
+            </GlowEffect>
+          </div>
+        </ScrollReveal>
 
-								<div>
-									<p className="text-sm text-gray-600 mb-2">配信スタイル</p>
-									<Chip variant="flat" color="secondary">
-										{STREAMING_STYLE_SHORT_LABELS[member.streamingStyle]}
-									</Chip>
-								</div>
-							</CardBody>
-						</Card>
-					</div>
+        {/* Recommendation reason */}
+        <ScrollReveal delay={0.5}>
+          <GlassCard className="mt-8 p-6 md:p-8" glowColor={theme.primary}>
+            <h2
+              className="mb-4 text-xl font-bold"
+              style={{ color: theme.primary }}
+            >
+              推薦理由
+            </h2>
+            <p className="leading-relaxed text-[var(--text-secondary)]">
+              {member.recommendReason}
+            </p>
+          </GlassCard>
+        </ScrollReveal>
 
-					{/* 推薦理由 */}
-					<Card className="bg-white/80 backdrop-blur-sm border-0 mt-6">
-						<CardHeader>
-							<h2 className="text-xl font-bold text-gray-900">推薦理由</h2>
-						</CardHeader>
-						<CardBody>
-							<p className="text-gray-700 leading-relaxed">
-								{member.recommendReason}
-							</p>
-						</CardBody>
-					</Card>
+        {/* Back link */}
+        <div className="mt-8 text-center">
+          <Button as={Link} href={teamConfig.backUrl} variant="flat" size="lg">
+            {teamConfig.backText}
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
-					{/* 公式情報へのリンク */}
-					<Card className="bg-white/80 backdrop-blur-sm border-0 mt-6">
-						<CardBody className="p-6">
-							<div className="text-center">
-								<h3 className="text-lg font-bold text-gray-900 mb-4">
-									公式情報
-								</h3>
-								<Button
-									as="a"
-									href={`https://hololive.hololivepro.com/talents/${resolvedParams.id}`}
-									target="_blank"
-									rel="noopener noreferrer"
-									variant="flat"
-									endContent={<ExternalLink size={16} />}
-								>
-									公式プロフィール
-								</Button>
-							</div>
-						</CardBody>
-					</Card>
-				</div>
-			</div>
-		</div>
-	);
+export default function MemberDetailClient(props: MemberDetailClientProps) {
+  return (
+    <GenerationThemeProvider generation={props.member.generation}>
+      <MemberDetailContent {...props} />
+    </GenerationThemeProvider>
+  )
 }
