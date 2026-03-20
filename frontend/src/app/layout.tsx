@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Noto_Sans_JP, Inter, Zen_Kaku_Gothic_New } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
 import { HeroUIProvider } from '@/providers/heroui-provider'
 import './globals.css'
 
@@ -35,11 +36,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <body
         className={`${notoSansJP.variable} ${inter.variable} ${zenKaku.variable} antialiased`}
       >
-        <HeroUIProvider>{children}</HeroUIProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <HeroUIProvider>{children}</HeroUIProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
