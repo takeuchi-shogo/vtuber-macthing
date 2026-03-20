@@ -147,6 +147,15 @@ body {
   100% { background-position: 0 40px; }
 }
 
+/* Loading Screen Glitch Break */
+@keyframes glitch-break {
+  0% { transform: translate(0); }
+  25% { transform: translate(-5px, 3px) skewX(2deg); }
+  50% { transform: translate(5px, -2px) skewX(-1deg); }
+  75% { transform: translate(-3px, 1px) skewX(1deg); }
+  100% { transform: translate(3px, -3px) skewX(-2deg); }
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .glitch-text::before,
