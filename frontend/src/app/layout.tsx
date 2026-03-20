@@ -1,16 +1,30 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Noto_Sans_JP, Inter, Zen_Kaku_Gothic_New } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
 import { HeroUIProvider } from '@/providers/heroui-provider'
+import { Header, Footer } from '@/components/layout'
+import { PageTransition } from '@/components/animation/page-transition'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  variable: '--font-noto-sans-jp',
+  display: 'swap',
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const inter = Inter({
   subsets: ['latin'],
+  weight: ['400', '600', '800'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const zenKaku = Zen_Kaku_Gothic_New({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-zen-kaku',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -24,11 +38,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${notoSansJP.variable} ${inter.variable} ${zenKaku.variable} antialiased`}
       >
-        <HeroUIProvider>{children}</HeroUIProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <HeroUIProvider>
+            <Header />
+            <main className="min-h-screen">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
+          </HeroUIProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

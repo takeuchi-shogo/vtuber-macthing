@@ -1,11 +1,20 @@
 'use client'
 
 import { MemberListCard } from '@/components/member'
-import { Button } from '@/components/ui'
+import { MemberGrid, MemberGridItem } from '@/components/member/member-grid'
+import { Button, GlassCard } from '@/components/ui'
+import { Breadcrumb } from '@/components/layout/breadcrumb'
+import { ScrollReveal } from '@/components/animation/scroll-reveal'
+import { ParticleBackground } from '@/components/animation/particle-background'
+import { GenerationThemeProvider } from '@/components/theme/generation-theme-provider'
+import {
+  generationThemes,
+  generationToThemeKey,
+} from '@/components/theme/theme-config'
 import { HoloMember } from '@/types'
-import { Card, CardBody, Chip } from '@heroui/react'
-import { ArrowLeft, Users } from 'lucide-react'
+import { Users, AlertCircle, SearchX } from 'lucide-react'
 import Link from 'next/link'
+import { type CSSProperties } from 'react'
 
 interface TeamConfig {
   members: HoloMember[]
@@ -22,89 +31,163 @@ interface TeamPageClientProps {
   }
 }
 
-export default function TeamPageClient({ teamConfig, resolvedParams }: TeamPageClientProps) {
-  const { members, title, description, officialUrl, generationOrder } = teamConfig
+function getThemeForGeneration(generation: string) {
+  const key = generationToThemeKey[generation] ?? 'gen0'
+  return generationThemes[key] ?? generationThemes.gen0
+}
+
+export default function TeamPageClient({
+  teamConfig,
+  resolvedParams,
+}: TeamPageClientProps) {
+  const { members, title, description, officialUrl, generationOrder } =
+    teamConfig
 
   // 世代別にメンバーをグループ化
-  const membersByGeneration = members.reduce((acc, member) => {
-    const generation = member.generation
-    if (!acc[generation]) {
-      acc[generation] = []
-    }
-    acc[generation].push(member)
-    return acc
-  }, {} as Record<string, typeof members>)
+  const membersByGeneration = members.reduce(
+    (acc, member) => {
+      const generation = member.generation
+      if (!acc[generation]) {
+        acc[generation] = []
+      }
+      acc[generation].push(member)
+      return acc
+    },
+    {} as Record<string, typeof members>
+  )
+
+  // Empty state
+  if (members.length === 0) {
+    return (
+      <div className="min-h-screen bg-[var(--bg-base)]">
+        <div className="container mx-auto px-4 py-8">
+          <Breadcrumb
+            items={[
+              { label: 'ホーム', href: '/' },
+              { label: 'メンバー', href: '/member' },
+              { label: title },
+            ]}
+          />
+          <div className="mt-16 flex flex-col items-center justify-center text-center">
+            <GlassCard className="max-w-md p-8">
+              <SearchX
+                size={48}
+                className="mx-auto mb-4 text-[var(--text-muted)]"
+              />
+              <h2 className="text-xl font-bold text-[var(--text-primary)] mb-2">
+                メンバーが見つかりませんでした
+              </h2>
+              <p className="text-[var(--text-secondary)] mb-6">
+                現在このブランチにはメンバーが登録されていません。
+              </p>
+              <Button as={Link} href="/member" color="primary">
+                メンバー一覧に戻る
+              </Button>
+            </GlassCard>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-[var(--bg-base)]">
       <div className="container mx-auto px-4 py-8">
+        {/* パンくずリスト */}
+        <Breadcrumb
+          items={[
+            { label: 'ホーム', href: '/' },
+            { label: 'メンバー', href: '/member' },
+            { label: title },
+          ]}
+        />
+
         {/* ヘッダー */}
-        <div className="mb-8">
-          <Button
-            as={Link}
-            href="/member"
-            variant="flat"
-            startContent={<ArrowLeft size={16} />}
-            className="mb-4"
-          >
-            メンバー一覧に戻る
-          </Button>
-          
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <ScrollReveal>
+          <div className="mt-6 mb-8 text-center">
+            <h1 className="text-4xl font-bold text-[var(--text-primary)] mb-4">
               {title}
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+            <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto mb-6">
               {description}
             </p>
             <div className="flex items-center justify-center space-x-2">
-              <Users className="w-5 h-5 text-blue-500" />
-              <span className="text-lg font-semibold text-gray-700">
+              <Users className="w-5 h-5 text-[var(--accent)]" />
+              <span className="text-lg font-semibold text-[var(--text-secondary)]">
                 {members.length} メンバー
               </span>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 世代別メンバー表示 */}
         {generationOrder.map((generation) => {
           const generationMembers = membersByGeneration[generation]
           if (!generationMembers || generationMembers.length === 0) return null
 
-          return (
-            <div key={generation} className="mb-12">
-              <Card className="bg-white/80 backdrop-blur-sm border-0 mb-6">
-                <CardBody className="p-6">
-                  <div className="flex items-center space-x-3">
-                    <Chip color="primary" variant="flat" size="lg">
-                      {generation}
-                    </Chip>
-                    <span className="text-gray-600">
-                      {generationMembers.length} メンバー
-                    </span>
-                  </div>
-                </CardBody>
-              </Card>
+          const theme = getThemeForGeneration(generation)
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {generationMembers.map((member) => (
-                  <MemberListCard
-                    key={member.id}
-                    member={member}
-                    showDetails={false}
-                    teamSlug={resolvedParams.team}
-                  />
-                ))}
-              </div>
-            </div>
+          return (
+            <GenerationThemeProvider key={generation} generation={generation}>
+              <section className="mb-16">
+                {/* 世代ヒーローバナー */}
+                <ScrollReveal>
+                  <div
+                    className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${theme.gradient} mb-6`}
+                  >
+                    <ParticleBackground color={theme.particle} count={15} />
+                    <div className="relative z-10 p-6 sm:p-8">
+                      <div className="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                          <h2
+                            className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]"
+                            style={
+                              {
+                                textShadow: `0 0 20px ${theme.primary}40`,
+                              } as CSSProperties
+                            }
+                          >
+                            {generation}
+                          </h2>
+                          <p className="mt-1 text-[var(--text-secondary)]">
+                            {generationMembers.length} メンバー
+                          </p>
+                        </div>
+                        <div
+                          className="h-12 w-12 rounded-full opacity-30"
+                          style={
+                            {
+                              background: `radial-gradient(circle, ${theme.primary}, transparent)`,
+                            } as CSSProperties
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </ScrollReveal>
+
+                {/* メンバーグリッド */}
+                <MemberGrid>
+                  {generationMembers.map((member) => (
+                    <MemberGridItem key={member.id}>
+                      <MemberListCard
+                        member={member}
+                        showDetails={false}
+                        teamSlug={resolvedParams.team}
+                      />
+                    </MemberGridItem>
+                  ))}
+                </MemberGrid>
+              </section>
+            </GenerationThemeProvider>
           )
         })}
 
         {/* 公式サイトリンク */}
-        <div className="mt-16 text-center">
-          <Card className="bg-white/80 backdrop-blur-sm border-0 max-w-xl mx-auto">
-            <CardBody className="p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+        <ScrollReveal>
+          <div className="mt-16 text-center">
+            <GlassCard className="max-w-xl mx-auto p-6">
+              <h3 className="text-xl font-bold text-[var(--text-primary)] mb-4">
                 {title} 公式情報
               </h3>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -129,9 +212,9 @@ export default function TeamPageClient({ teamConfig, resolvedParams }: TeamPageC
                   公式YouTube
                 </Button>
               </div>
-            </CardBody>
-          </Card>
-        </div>
+            </GlassCard>
+          </div>
+        </ScrollReveal>
       </div>
     </div>
   )

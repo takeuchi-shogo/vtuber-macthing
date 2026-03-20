@@ -2,7 +2,7 @@ export interface HoloMember {
   id: string
   name: string
   nameJP?: string
-  branch: 'JP' | 'EN' | 'ID'
+  branch: 'JP' | 'EN' | 'ID' | 'DEV_IS'
   generation: string
   debut: string
   description: string
