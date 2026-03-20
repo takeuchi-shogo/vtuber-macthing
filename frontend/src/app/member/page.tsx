@@ -31,7 +31,7 @@ const branches: BranchInfo[] = [
     memberCount: '60+',
     icon: <Star className="h-6 w-6" />,
     color: '#00B8ED',
-    href: '/member/jp',
+    href: '/member/hololive-jp',
   },
   {
     id: 'en',
@@ -40,7 +40,7 @@ const branches: BranchInfo[] = [
     memberCount: '20+',
     icon: <Globe className="h-6 w-6" />,
     color: '#6C5CE7',
-    href: '/member/en',
+    href: '/member/hololive-en',
   },
   {
     id: 'id',
@@ -49,7 +49,7 @@ const branches: BranchInfo[] = [
     memberCount: '9+',
     icon: <Users className="h-6 w-6" />,
     color: '#E74C3C',
-    href: '/member/id',
+    href: '/member/hololive-id',
   },
   {
     id: 'devis',

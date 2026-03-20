@@ -30,7 +30,7 @@ const branches: BranchInfo[] = [
     count: hololiveJPMembers.length,
     description:
       '日本を拠点に活動する最大規模のブランチ。0期生からholoXまで、個性豊かなメンバーが揃う。',
-    href: '/member/jp',
+    href: '/member/hololive-jp',
   },
   {
     name: 'ホロライブEN',
@@ -38,7 +38,7 @@ const branches: BranchInfo[] = [
     count: hololiveENMembers.length,
     description:
       '英語圏を中心に活動するグローバルブランチ。MythからJusticeまで幅広い魅力を発信。',
-    href: '/member/en',
+    href: '/member/hololive-en',
   },
   {
     name: 'ホロライブID',
@@ -46,7 +46,7 @@ const branches: BranchInfo[] = [
     count: hololiveIDMembers.length,
     description:
       'インドネシアを拠点に多言語で配信。親しみやすさと高いエンタメ性が魅力。',
-    href: '/member/id',
+    href: '/member/hololive-id',
   },
   {
     name: 'DEV_IS',
