@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react'
+import { CyberGrid } from '@/components/effects/cyber-grid'
 
 const EXTERNAL_LINKS = [
   {
@@ -17,8 +18,9 @@ const EXTERNAL_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--border)] bg-[var(--bg-surface)]">
-      <div className="mx-auto max-w-6xl px-4 py-8 text-center">
+    <footer className="relative border-t border-[var(--border)] bg-[var(--bg-surface)]">
+      <CyberGrid color="#00B8ED" />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-8 text-center">
         <p className="text-xs leading-relaxed text-[var(--text-secondary)]">
           このサイトはファンメイドのプロジェクトです。
           <br className="sm:hidden" />

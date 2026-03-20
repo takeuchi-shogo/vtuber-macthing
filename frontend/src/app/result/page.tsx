@@ -7,6 +7,8 @@ import { Home, RefreshCw } from 'lucide-react'
 import { calculateRecommendation } from '@/lib/recommendation'
 import { Button } from '@/components/ui'
 import { ScrollReveal } from '@/components/animation/scroll-reveal'
+import { GlitchText } from '@/components/effects/glitch-text'
+import { NeonText } from '@/components/effects/neon-text'
 import { ResultReveal } from '@/components/result/result-reveal'
 import { ResultMainCard } from '@/components/result/result-main-card'
 import { ResultSubCard } from '@/components/result/result-sub-card'
@@ -90,12 +92,28 @@ export default function ResultPage() {
           {/* Header */}
           <ScrollReveal>
             <div className="mb-8 text-center">
-              <h1 className="mb-2 text-3xl font-bold text-[var(--text-primary)]">
+              <GlitchText
+                as="h1"
+                intensity="high"
+                className="mb-2 text-3xl font-bold text-[var(--text-primary)]"
+              >
                 診断結果
-              </h1>
+              </GlitchText>
               <p className="text-[var(--text-secondary)]">
                 あなたにおすすめのホロライブメンバーはこちら！
               </p>
+              <div className="mt-4">
+                <NeonText
+                  as="span"
+                  color={theme.primary}
+                  className="text-5xl font-black"
+                >
+                  {`${mainScore}%`}
+                </NeonText>
+                <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                  マッチ度
+                </p>
+              </div>
             </div>
           </ScrollReveal>
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useGenerationTheme } from '@/components/theme/use-generation-theme'
-import { TypewriterText } from '@/components/animation/typewriter-text'
+import { NeonText } from '@/components/effects/neon-text'
 import { Chip } from '@/components/ui'
 import { BRANCH_LABELS } from '@/lib/constants'
 import { HoloMember } from '@/types'
@@ -63,8 +63,10 @@ export function MemberDetailHero({ member }: MemberDetailHeroProps) {
 
         {/* Text content */}
         <div className="flex-1 text-center md:text-left">
-          <h1 className="mb-2 text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-            <TypewriterText text={displayName} speed={60} />
+          <h1 className="mb-2 text-3xl font-bold md:text-4xl">
+            <NeonText color={theme.primary} flicker={false}>
+              {displayName}
+            </NeonText>
           </h1>
 
           {member.nameJP && (
