@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Noto_Sans_JP, Inter, Zen_Kaku_Gothic_New } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import { HeroUIProvider } from '@/providers/heroui-provider'
+import { Header, Footer } from '@/components/layout'
+import { PageTransition } from '@/components/animation/page-transition'
 import './globals.css'
 
 const notoSansJP = Noto_Sans_JP({
@@ -41,7 +43,13 @@ export default function RootLayout({
         className={`${notoSansJP.variable} ${inter.variable} ${zenKaku.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <HeroUIProvider>{children}</HeroUIProvider>
+          <HeroUIProvider>
+            <Header />
+            <main className="min-h-screen">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
+          </HeroUIProvider>
         </ThemeProvider>
       </body>
     </html>
